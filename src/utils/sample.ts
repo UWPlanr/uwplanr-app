@@ -253,7 +253,7 @@ export const PROFILE: Term[] = [
       },
     ],
   },
-];
+]
 
 export const CS246: GradeCourse = {
   antireqs: "CS 246E,CS 247,MSE 342,SYDE 322",
@@ -271,7 +271,7 @@ export const CS246: GradeCourse = {
   termsOffered: [],
   title: "Object-Oriented Software Development",
   grade: "85",
-};
+}
 
 export const CS136 = {
   antireqs: "CS 137,CS 138,CS 146,PHYS 239",
@@ -289,7 +289,7 @@ export const CS136 = {
   termsOffered: [],
   title: "Elementary Algorithm Design and Data Abstraction",
   grade: "82",
-};
+}
 
 export const ECON101 = {
   antireqs: "ECON 100,COMM 103",
@@ -306,4 +306,4 @@ export const ECON101 = {
   termsOffered: [],
   title: "Introduction to Microeconomics",
   grade: "92",
-};
+}

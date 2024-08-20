@@ -1,9 +1,11 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
+
+import { ProfileContextProvider } from "./context/useProfileContext";
+
 import Home from "./pages/Home";
 import Admin from "./pages/Admin";
 import About from "./pages/About";
-import { ProfileContextProvider } from "./context/useProfileContext";
-import { Toaster } from "react-hot-toast";
 
 const App = () => {
   return (

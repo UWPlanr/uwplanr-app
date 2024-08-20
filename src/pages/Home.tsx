@@ -1,9 +1,11 @@
-import { Download } from "lucide-react";
-import Term from "../components/Term";
-import { Link } from "react-router-dom";
-import AddTermModal from "../components/AddTermModal";
 import { useContext } from "react";
+import { Download } from "lucide-react";
+import { Link } from "react-router-dom";
+
 import { ProfileContext } from "../context/useProfileContext";
+
+import Term from "../components/Term";
+import AddTermModal from "../components/AddTermModal";
 
 const Home = () => {
   const { profile } = useContext(ProfileContext);

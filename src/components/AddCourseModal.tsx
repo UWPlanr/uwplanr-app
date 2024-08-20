@@ -1,7 +1,8 @@
 import { Plus } from "lucide-react";
 import { useContext, useState } from "react";
-import { ProfileContext } from "../context/useProfileContext";
 import toast from "react-hot-toast";
+
+import { ProfileContext } from "../context/useProfileContext";
 
 type Props = {
     term: Term;
@@ -13,9 +14,11 @@ const AddCourseModal = ({ term }: Props) => {
   const { profile, changeProfile } = useContext(ProfileContext);
   const [loading, setLoading] = useState<boolean>(false);
   const [course, setCourse] = useState<GradeCourse>(emptyCourse);
+  
   const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setCourse(prev => ({ ...prev, [event.target.name]: event.target.value }));
   };
+
   const onAdd = async () => {
     if (profile.map(term => term.courses.map(course => course.code)).flat().includes(course.code)) {
       setCourse(emptyCourse);
@@ -56,6 +59,7 @@ const AddCourseModal = ({ term }: Props) => {
       if (refresh) window.location.reload();
     });
   };
+  
   return (
     <>
         <button className="btn btn-circle btn-ghost" onClick={() => (document.getElementById(`add-course-${term.term}-modal`) as HTMLDialogElement).showModal()}><Plus /></button>

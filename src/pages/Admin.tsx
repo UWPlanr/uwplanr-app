@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import AdminCourseCard from "../components/AdminCourseCard";
 import { Link } from "react-router-dom";
+
+import AdminCourseCard from "../components/AdminCourseCard";
 
 const Admin = () => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -8,7 +9,7 @@ const Admin = () => {
 
   useEffect(() => {
         setLoading(true);
-        fetch("http://127.0.0.1:5000/grab_random_course")
+        fetch(`${import.meta.env.VITE_SERVER_URL}/grab_random_course`)
             .then(response => response.json())
             .then(data => {
                 if (Object.keys(data.course).length === 0) {

@@ -28,7 +28,7 @@ export const nextSeasonYear = (terms: Term[]): { season: "Winter" | "Fall" | "Sp
         return { season: "Spring", year: latestTerm.year };
     } else {
         return { season: "Fall", year: latestTerm.year };
-    }
+    };
 };
 
 // Assumes the array is sorted in terms of the term.

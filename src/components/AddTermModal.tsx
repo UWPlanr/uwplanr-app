@@ -1,8 +1,9 @@
-import { Plus } from "lucide-react";
 import { useContext, useState } from "react";
+import { Plus } from "lucide-react";
+import toast from "react-hot-toast";
+
 import { ProfileContext } from "../context/useProfileContext";
 import { nextSeasonYear, nextTerm, validNextTerm } from "../utils/helpers";
-import toast from "react-hot-toast";
 
 const AddTermModal = () => {
   const { profile, changeProfile } = useContext(ProfileContext);

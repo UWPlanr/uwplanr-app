@@ -1,5 +1,6 @@
-import { Edit, Trash } from "lucide-react";
 import { useContext, useState } from "react";
+import { Edit, Trash } from "lucide-react";
+
 import { ProfileContext } from "../context/useProfileContext";
 
 type Props = {

@@ -1,9 +1,11 @@
+import { useContext } from "react";
+import { Ghost, Trash } from "lucide-react";
+
 import EditTermModal from "./EditTermModal";
 import AddCourseModal from "./AddCourseModal";
-import { Ghost, Trash } from "lucide-react";
-import { prereqCheckerWrapper } from "../utils/checkers";
-import { useContext } from "react";
+
 import { ProfileContext } from "../context/useProfileContext";
+import { prereqCheckerWrapper } from "../utils/checkers";
 
 type Props = {
     term: Term;

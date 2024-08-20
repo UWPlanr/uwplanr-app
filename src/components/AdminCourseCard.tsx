@@ -30,33 +30,33 @@ const handleFinalize = async () => {
   };
 
   return (
-        <div className="card w-[90%] shadow-2xl">
-            <div className="card-body">
-                <h2 className="card-title">{`${course.code} - ${course.title}`}</h2>
-                <p className="py-4">{course.description}</p>
-                <p className="pb-4">{course.requirements}</p>
-                <div className="flex flex-col gap-y-4">
-                    <input disabled={loading} onChange={event => handleChange(event)} name="prereqs" value={data.prereqs} type="text" placeholder="Prerequisites" className="input input-sm input-bordered w-full" />
-                    <input disabled={loading} onChange={event => handleChange(event)} name="coreqs" value={data.coreqs} type="text" placeholder="Corequisites" className="input input-sm input-bordered w-full" />
-                    <input disabled={loading} onChange={event => handleChange(event)} name="antireqs" value={data.antireqs} type="text" placeholder="Antirequisites" className="input input-sm input-bordered w-full" />
-                    <select name="faculty" value={data.faculty} disabled onChange={event => handleChange(event)} className="select select-sm select-bordered w-full">
-                        <option value="ENV">Environment</option>
-                        <option value="MAT">Math</option>
-                        <option value="ENG">Engineering</option>
-                        <option value="SCI">Science</option>
-                        <option value="ART">Arts</option>
-                        <option value="AHS">Applied Health Sciences</option>
-                    </select>
-                    <div className="flex justify-between gap-4">
-                        <input disabled={loading} onChange={event => handleChange(event)} name="minLevel" value={data.minLevel} type="text" placeholder="Min Level" className="input input-sm input-bordered w-full" />
-                        <input disabled={loading} onChange={event => handleChange(event)} name="termsOffered" value={data.termsOffered.join(",")} type="text" placeholder="Terms Offered" className="input input-sm input-bordered w-full" />
-                    </div>
-                </div>
-                <div className="card-actions justify-end">
-                    <button className="btn btn-primary" type="submit" disabled={loading} onClick={handleFinalize}>Finalize</button>
-                </div>
+    <div className="card w-[90%] shadow-2xl">
+      <div className="card-body">
+        <h2 className="card-title">{`${course.code} - ${course.title}`}</h2>
+          <p className="py-4">{course.description}</p>
+          <p className="pb-4">{course.requirements}</p>
+          <div className="flex flex-col gap-y-4">
+            <input disabled={loading} onChange={event => handleChange(event)} name="prereqs" value={data.prereqs} type="text" placeholder="Prerequisites" className="input input-sm input-bordered w-full" />
+            <input disabled={loading} onChange={event => handleChange(event)} name="coreqs" value={data.coreqs} type="text" placeholder="Corequisites" className="input input-sm input-bordered w-full" />
+            <input disabled={loading} onChange={event => handleChange(event)} name="antireqs" value={data.antireqs} type="text" placeholder="Antirequisites" className="input input-sm input-bordered w-full" />
+            <select name="faculty" value={data.faculty} disabled onChange={event => handleChange(event)} className="select select-sm select-bordered w-full">
+              <option value="ENV">Environment</option>
+              <option value="MAT">Math</option>
+              <option value="ENG">Engineering</option>
+              <option value="SCI">Science</option>
+              <option value="ART">Arts</option>
+              <option value="AHS">Applied Health Sciences</option>
+            </select>
+            <div className="flex justify-between gap-4">
+              <input disabled={loading} onChange={event => handleChange(event)} name="minLevel" value={data.minLevel} type="text" placeholder="Min Level" className="input input-sm input-bordered w-full" />
+              <input disabled={loading} onChange={event => handleChange(event)} name="termsOffered" value={data.termsOffered.join(",")} type="text" placeholder="Terms Offered" className="input input-sm input-bordered w-full" />
             </div>
-        </div>
+          </div>
+          <div className="card-actions justify-end">
+            <button className="btn btn-primary" type="submit" disabled={loading} onClick={handleFinalize}>Finalize</button>
+          </div>
+      </div>
+    </div>
   );
 };
 
