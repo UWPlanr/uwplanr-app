@@ -37,7 +37,8 @@ const AddCourseModal = ({ term }: Props) => {
     };
     setLoading(true);
     let refresh = false;
-    await fetch(`${import.meta.env.SERVER_URL}/grab_course/${course.faculty}/${course.code}`, { method: "GET" }).then(response => response.json()).then(data => {
+    await fetch(`${import.meta.env.VITE_SERVER_URL}/grab_course/${course.faculty}/${course.code}`, { method: "GET" }).then(response => response.json()).then(data => {
+      console.log(data);
       if (Object.keys(data.course).length !== 0) {
         const newCourses = [...(term.courses), { ...(data.course), grade: course.grade }];
         changeProfile(profile.map(profileTerm => profileTerm.term === term.term ? ({ ...profileTerm, courses: newCourses }) : profileTerm ));
