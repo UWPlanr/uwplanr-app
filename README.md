@@ -1,4 +1,4 @@
-# UWPlanr Server
+# UWPlanr App
 
 ## 📃 Description
 
