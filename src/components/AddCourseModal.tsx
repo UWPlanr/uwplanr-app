@@ -3,17 +3,16 @@ import { useContext, useState } from "react";
 import toast from "react-hot-toast";
 
 import { ProfileContext } from "../context/useProfileContext";
+import { EMPTY_COURSE } from "../utils/constants";
 
 type Props = {
     term: Term;
 };
 
-const emptyCourse: GradeCourse = { code: "", title: "", faculty: "", description: "", requirements: "", prereqs: "", coreqs: "", antireqs: "", termsOffered: [], minLevel: "", finalized: true, grade: "" };
-
 const AddCourseModal = ({ term }: Props) => {
   const { profile, changeProfile } = useContext(ProfileContext);
   const [loading, setLoading] = useState<boolean>(false);
-  const [course, setCourse] = useState<GradeCourse>(emptyCourse);
+  const [course, setCourse] = useState<GradeCourse>(EMPTY_COURSE);
   
   const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setCourse(prev => ({ ...prev, [event.target.name]: event.target.value }));
@@ -21,19 +20,19 @@ const AddCourseModal = ({ term }: Props) => {
 
   const onAdd = async () => {
     if (profile.map(term => term.courses.map(course => course.code)).flat().includes(course.code)) {
-      setCourse(emptyCourse);
+      setCourse(EMPTY_COURSE);
       (document.getElementById(`add-course-${term.term}-modal`) as HTMLDialogElement).close();
       toast.error("Course has already been added.");
       return;
     };
     if (!course.grade || isNaN(parseInt(course.grade))) {
-      setCourse(emptyCourse);
+      setCourse(EMPTY_COURSE);
       (document.getElementById(`add-course-${term.term}-modal`) as HTMLDialogElement).close();
       toast.error("Invalid course grade.");
       return;
     };
     if (parseInt(course.grade) < 0 || parseInt(course.grade) > 100) {
-      setCourse(emptyCourse);
+      setCourse(EMPTY_COURSE);
       (document.getElementById(`add-course-${term.term}-modal`) as HTMLDialogElement).close();
       toast.error("Grade is invalid.");
       return;
@@ -54,7 +53,7 @@ const AddCourseModal = ({ term }: Props) => {
       return;
     }).finally(() => {
       setLoading(false);
-      setCourse(emptyCourse);
+      setCourse(EMPTY_COURSE);
       (document.getElementById(`add-course-${term.term}-modal`) as HTMLDialogElement).close();
       if (refresh) window.location.reload();
     });
@@ -66,7 +65,6 @@ const AddCourseModal = ({ term }: Props) => {
         <dialog id={`add-course-${term.term}-modal`} className="modal">
             <div className="modal-box">
                 <h3 className="font-bold text-lg">{`${term.term} - ${term.season} ${term.year}`}</h3>
-                <span className="text-gray-500 text-sm italic mt-2">Put 'TBD' for grade if it is to be determined.</span>
                 <div className="w-full flex items-center gap-2 mt-4">
                     <select name="faculty" value={course.faculty} disabled={loading} onChange={event => handleChange(event)} className="select select-bordered w-full">
                         <option value="ENV">Environment</option>
