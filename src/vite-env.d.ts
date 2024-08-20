@@ -27,3 +27,11 @@ type Requirement = {
     operator: "&" | "|",
     operands: (string | Requirement)[];
 };
+
+interface ImportMetaEnv {
+    readonly SERVER_URL: string
+};
+  
+interface ImportMeta {
+    readonly env: ImportMetaEnv
+};

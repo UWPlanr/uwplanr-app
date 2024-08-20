@@ -20,7 +20,7 @@ const AdminCourseCard = ({ course }: Props) => {
 const handleFinalize = async () => {
     try {
       setLoading(true);
-      await fetch("http://127.0.0.1:5000/finalize_course", { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...data, finalized: true }) })
+      await fetch(`${import.meta.env.SERVER_URL}/finalize_course`, { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...data, finalized: true }) })
     } catch (error) {
       console.error(error);
     } finally {
