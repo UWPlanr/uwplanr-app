@@ -14,7 +14,7 @@ const AddCourseModal = ({ term }: Props) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [course, setCourse] = useState<GradeCourse>(EMPTY_COURSE);
   
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setCourse(prev => ({ ...prev, [event.target.name]: event.target.value }));
   };
 
@@ -39,7 +39,7 @@ const AddCourseModal = ({ term }: Props) => {
     };
     setLoading(true);
     let refresh = false;
-    await fetch(`${import.meta.env.VITE_SERVER_URL}/grab_course/${course.faculty}/${course.code}`, { method: "GET" }).then(response => response.json()).then(data => {
+    await fetch(`${import.meta.env.VITE_SERVER_URL}/grab_course/${course.code}`, { method: "GET" }).then(response => response.json()).then(data => {
       console.log(data);
       if (Object.keys(data.course).length !== 0) {
         const newCourses = [...(term.courses), { ...(data.course), grade: course.grade }];
@@ -66,14 +66,6 @@ const AddCourseModal = ({ term }: Props) => {
             <div className="modal-box">
                 <h3 className="font-bold text-lg">{`${term.term} - ${term.season} ${term.year}`}</h3>
                 <div className="w-full flex items-center gap-2 mt-4">
-                    <select name="faculty" value={course.faculty} disabled={loading} onChange={event => handleChange(event)} className="select select-bordered w-full">
-                        <option value="ENV">Environment</option>
-                        <option value="MAT">Math</option>
-                        <option value="ENG">Engineering</option>
-                        <option value="SCI">Science</option>
-                        <option value="ART">Arts</option>
-                        <option value="AHS">Applied Health Sciences</option>
-                    </select>
                     <input disabled={loading} onChange={event => handleChange(event)} name="code" value={course.code} type="text" placeholder="Course" className="w-full input input-bordered" />
                     <input onChange={event => handleChange(event)} name="grade" value={course.grade} type="text" placeholder="Grade" className="w-full input input-bordered" />
                 </div>

@@ -46,6 +46,11 @@ const handleFinalize = async () => {
               <option value="SCI">Science</option>
               <option value="ART">Arts</option>
               <option value="AHS">Applied Health Sciences</option>
+              <option value="STP">St. Paul's College (United College)</option>
+              <option value="REN">Renison University College</option>
+              <option value="STJ">St. Jerome's University</option>
+              <option value="CGC">Conrad Gerbel College</option>
+              <option value="VPA">Vice President Academic</option>
             </select>
             <div className="flex justify-between gap-4">
               <input disabled={loading} onChange={event => handleChange(event)} name="minLevel" value={data.minLevel} type="text" placeholder="Min Level" className="input input-sm input-bordered w-full" />
