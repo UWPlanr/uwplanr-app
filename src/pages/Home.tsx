@@ -1,5 +1,4 @@
 import { useContext } from "react";
-import { Download } from "lucide-react";
 import { Link } from "react-router-dom";
 
 import { ProfileContext } from "../context/useProfileContext";
