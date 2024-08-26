@@ -6,6 +6,7 @@ import { ProfileContext } from "../context/useProfileContext";
 
 import Term from "../components/Term";
 import AddTermModal from "../components/AddTermModal";
+import InfoModal from "../components/InfoModal";
 
 const Home = () => {
   const { profile } = useContext(ProfileContext);
@@ -23,9 +24,7 @@ const Home = () => {
           </ul>
         </div>
         <div className="navbar-end">
-          <div className="tooltip tooltip-left" data-tip="Download a JSON profile and re-use whenever needed.">
-            <button className="btn btn-outline btn-primary"><Download size={20} />Download</button>
-          </div>
+          <InfoModal />
         </div>
       </div>
       {profile.length === 0 ? 
