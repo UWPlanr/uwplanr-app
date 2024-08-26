@@ -16,6 +16,7 @@ const Term = ({ term }: Props) => {
   const { profile, changeProfile } = useContext(ProfileContext);
   const onDelete = () => {
     changeProfile(profile.splice(0, profile.length - 1));
+    window.location.reload();
   };
   return (
     <div className="card bg-base-100 shadow-xl">
