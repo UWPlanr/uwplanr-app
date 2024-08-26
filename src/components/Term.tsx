@@ -3,6 +3,7 @@ import { Ghost, Trash } from "lucide-react";
 
 import EditTermModal from "./EditTermModal";
 import AddCourseModal from "./AddCourseModal";
+import CourseInfoModal from "./CourseInfoModal";
 
 import { ProfileContext } from "../context/useProfileContext";
 import { prereqCheckerWrapper } from "../utils/checkers";
@@ -30,18 +31,22 @@ const Term = ({ term }: Props) => {
                             <th>Course</th>
                             <th>Grade</th>
                             <th>Status</th>
+                            <th>Info</th>
                         </tr>
                     </thead>
                     <tbody>
                         {
                             term.courses.map((course, index) => (
                                 <tr key={index}>
-                                    <td className="tooltip tooltip-right" data-tip={course.requirements}>{course.code}</td>
+                                    <td>{course.code}</td>
                                     <td>{course.grade}</td>
                                     <td>
                                         { prereqCheckerWrapper(profile, course, term.term) ? 
                                             <span className="btn btn-xs btn-circle bg-green-500 hover:bg-green-500"></span> :
                                             <span className="btn btn-xs btn-circle bg-red-500 hover:bg-red-500"></span> }
+                                    </td>
+                                    <td>
+                                        <CourseInfoModal course={course} />
                                     </td>
                                 </tr>
                             ))
