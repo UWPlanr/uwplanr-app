@@ -63,7 +63,7 @@ const AddCourseModal = ({ term }: Props) => {
         <button className="btn btn-circle btn-ghost" onClick={() => (document.getElementById(`add-course-${term.code}-modal`) as HTMLDialogElement).showModal()}><Plus /></button>
         <dialog id={`add-course-${term.code}-modal`} className="modal">
             <div className="modal-box">
-                <h3 className="font-bold text-lg">{`${term.code} - ${term.season} ${term.year}`}</h3>
+                <h3 className="font-bold text-lg">{`${term.season} ${term.year} - ${term.code}`}</h3>
                 <span className="text-gray-500 italic text-sm">Separate the subject code and catalog number; e.g.: MATH135 to MATH 135.</span>
                 <div className="w-full flex items-center gap-2 mt-4">
                     <input disabled={loading} onChange={event => handleChange(event)} name="code" value={course.code} type="text" placeholder="Course" className="w-full input input-bordered" />

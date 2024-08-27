@@ -25,7 +25,7 @@ const EditTermModal = ({ term }: Props) => {
         <button className="btn btn-circle btn-ghost" onClick={() => (document.getElementById(`edit-modal-${term.code}`) as HTMLDialogElement).showModal()}><Edit /></button>
         <dialog id={`edit-modal-${term.code}`} className="modal">
             <div className="modal-box">
-                <h3 className="font-bold text-lg">{`${term.code} - ${term.season} ${term.year}`}</h3>
+                <h3 className="font-bold text-lg">{`${term.season} ${term.year} - ${term.code}`}</h3>
                 <div className="flex flex-col gap-y-2 my-4">
                     {
                         courses.map((course, index) => (

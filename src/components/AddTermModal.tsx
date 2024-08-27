@@ -27,7 +27,7 @@ const AddTermModal = () => {
         <button className="btn btn-lg btn-circle btn-ghost" onClick={() => (document.getElementById("add-term-modal") as HTMLDialogElement).showModal()}><Plus size={30} /></button>
         <dialog id={"add-term-modal"} className="modal">
             <div className="modal-box">
-                <h3 className="font-bold text-lg">Add {term.code} Term</h3>
+                <h3 className="font-bold text-lg">Add Term</h3>
                 <div className="w-full flex items-center gap-2 mt-4">
                     <select onChange={event => handleChange(event)} name="code" value={term.code} className="select select-bordered w-full max-w-xs">
                         {Object.values(nextCodes(profile)).map((termCode, index) => <option key={index} value={termCode}>{termCode}</option>)}

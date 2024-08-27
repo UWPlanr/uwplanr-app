@@ -22,8 +22,8 @@ const Term = ({ term }: Props) => {
     <div className="card bg-base-100 shadow-xl">
         <div className="card-body">
             <h2 className="card-title flex justify-between">
-                <span>{term.code}</span>
                 <span>{`${term.season} ${term.year}`}</span>
+                <span>{term.code}</span>
             </h2>
             {term.courses.length !== 0 ? (<div className="overflow-x-auto">
                 <table className="table">
