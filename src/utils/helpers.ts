@@ -13,6 +13,23 @@ const nextCode = (terms: Term[]): string => {
         return `COOP${parseInt(latestTerm.code[4]) + 1}`;
     };
 };
+
+// Assumes the array is sorted in terms of the index.
+export const nextCodes = (terms: Term[]): { study: string, coop: string } => {
+    const returnObj = { study: "", coop: "" };
+    for (let i = terms.length - 1; i >= 0; i--) {
+        if (returnObj.study && returnObj.coop) break;
+        if (terms[i].code.match("[0-9](A|B)") && !returnObj.study) {
+            returnObj.study = terms[i].code[1] === "A" ? `${terms[i].code[0]}B` : `${parseInt(terms[i].code[0]) + 1}A`;
+        } else if (terms[i].code.match("COOP[0-9]") && !returnObj.coop) {
+            returnObj.coop = `COOP${parseInt(terms[i].code[4]) + 1}`;
+        };
+    };
+    if (!returnObj.study) returnObj.study = "1A";
+    if (!returnObj.coop) returnObj.coop = "COOP1";
+    return returnObj;
+};
+
 // Assumes the array is sorted in terms of the index.
 const nextSeasonYear = (terms: Term[]): { season: "Winter" | "Fall" | "Spring"; year: string } => {
     if (terms.length === 0) {

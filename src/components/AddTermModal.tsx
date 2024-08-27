@@ -3,7 +3,7 @@ import { Plus } from "lucide-react";
 import toast from "react-hot-toast";
 
 import { ProfileContext } from "../context/useProfileContext";
-import { nextTerm, validNextTerm } from "../utils/helpers";
+import { nextCodes, nextTerm, validNextTerm } from "../utils/helpers";
 
 const AddTermModal = () => {
   const { profile, changeProfile } = useContext(ProfileContext);
@@ -14,6 +14,7 @@ const AddTermModal = () => {
   const onAdd = () => {
     if (!validNextTerm(profile, term)) {
       (document.getElementById("add-term-modal") as HTMLDialogElement).close();
+      setTerm(nextTerm(profile));
       toast.error("Invalid term");
       return;
     };
@@ -28,10 +29,9 @@ const AddTermModal = () => {
             <div className="modal-box">
                 <h3 className="font-bold text-lg">Add {term.code} Term</h3>
                 <div className="w-full flex items-center gap-2 mt-4">
-                    {/* <select onChange={event => handleChange(event)} name="code" value={term.code} className="select select-bordered w-full max-w-xs">
-                        <option value={"Winter"}>Winter</option>
-                        <option value={"Spring"}>Spring</option>
-                    </select> */}
+                    <select onChange={event => handleChange(event)} name="code" value={term.code} className="select select-bordered w-full max-w-xs">
+                        {Object.values(nextCodes(profile)).map((termCode, index) => <option key={index} value={termCode}>{termCode}</option>)}
+                    </select>
                     <select onChange={event => handleChange(event)} name="season" value={term.season} className="select select-bordered w-full max-w-xs">
                         <option value={"Winter"}>Winter</option>
                         <option value={"Spring"}>Spring</option>
