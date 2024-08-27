@@ -17,7 +17,8 @@ type Course = {
 type GradeCourse = Course & { grade: string }
 
 type Term = {
-  term: string
+  index: number
+  code: string
   season: "Spring" | "Fall" | "Winter"
   year: string
   courses: GradeCourse[]

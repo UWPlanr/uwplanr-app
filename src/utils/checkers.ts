@@ -5,9 +5,8 @@ const gradeRegex = new RegExp("{[0-9]{2,}%}");
 const codeFullRegex = new RegExp("^[A-Z]{2,} [0-9]{3}[A-Z]?$");
 const codeGradeFullRegex = new RegExp("^[A-Z]{2,} [0-9]{3}[A-Z]? {[0-9]{2,}%}$");
 
-const previousCourses = (profile: Term[], term: string): GradeCourse[] => {
-    const sliceIndex = term[1] === "A" ? (parseInt(term[0]) - 1) * 2 : (parseInt(term[0]) - 1) * 2 + 1;
-    return profile.slice(0, sliceIndex).map(term => term.courses).reduce((initial, current) => initial.concat(current), []);
+const previousCourses = (profile: Term[], index: number): GradeCourse[] => {
+    return profile.slice(0, index).map(term => term.courses).reduce((initial, current) => initial.concat(current), []);
 };
 
 const emptyObject = (object: Record<any, any>): boolean => Object.keys(object).length === 0;
@@ -41,9 +40,9 @@ const prereqChecker = (requirement: Requirement, previousCourses: GradeCourse[],
     return operatorFunction(booleanValues);
 };
 
-export const prereqCheckerWrapper = (profile: Term[], course: GradeCourse, term: string): boolean => {
+export const prereqCheckerWrapper = (profile: Term[], course: GradeCourse, index: number): boolean => {
     if (emptyObject(JSON.parse(course.prereqs))) return true;
-    const courses = previousCourses(profile, term);
+    const courses = previousCourses(profile, index);
     const prereqs = JSON.parse(course.prereqs) as Requirement;
     return prereqChecker(prereqs, courses, operatorToFunction(prereqs.operator))
 };

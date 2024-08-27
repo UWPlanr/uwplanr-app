@@ -1,12 +1,20 @@
-// Assumes the array is sorted in terms of the term.
-export const nextTerm = (terms: Term[]): string => {
-    if (terms.length === 0) return "1A";
-    const latestTerm = terms[terms.length - 1];
-    return latestTerm.term[1] === "A" ? `${latestTerm.term[0]}B` : `${parseInt(latestTerm.term[0]) + 1}A`; 
+// Assumes the array is sorted in terms of the index.
+const nextIndex = (terms: Term[]): number => {
+    return terms.length;
 };
 
-// Assumes the array is sorted in terms of the term.
-export const nextSeasonYear = (terms: Term[]): { season: "Winter" | "Fall" | "Spring"; year: string } => {
+// Assumes the array is sorted in terms of the index.
+const nextCode = (terms: Term[]): string => {
+    if (terms.length === 0) return "1A";
+    const latestTerm = terms[terms.length - 1];
+    if (latestTerm.code.match("[0-9](A|B)")) {
+        return latestTerm.code[1] === "A" ? `${latestTerm.code[0]}B` : `${parseInt(latestTerm.code[0]) + 1}A`;
+    } else {
+        return `COOP${parseInt(latestTerm.code[4]) + 1}`;
+    };
+};
+// Assumes the array is sorted in terms of the index.
+const nextSeasonYear = (terms: Term[]): { season: "Winter" | "Fall" | "Spring"; year: string } => {
     if (terms.length === 0) {
         const response = { season: "", year: "" };
         const currentDate = new Date();
@@ -31,7 +39,12 @@ export const nextSeasonYear = (terms: Term[]): { season: "Winter" | "Fall" | "Sp
     };
 };
 
-// Assumes the array is sorted in terms of the term.
+// Assumes the array is sorted in terms of the index.
+export const nextTerm = (terms: Term[]): Term => {
+    return { index: nextIndex(terms), code: nextCode(terms), ...(nextSeasonYear(terms)), courses: [] };
+};
+
+// Assumes the array is sorted in terms of the index.
 export const validNextTerm = (terms: Term[], nextTerm: Term): boolean => {
     if (terms.length === 0) {
         return true;

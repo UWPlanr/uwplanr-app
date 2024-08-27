@@ -22,7 +22,7 @@ const Term = ({ term }: Props) => {
     <div className="card bg-base-100 shadow-xl">
         <div className="card-body">
             <h2 className="card-title flex justify-between">
-                <span>{term.term}</span>
+                <span>{term.code}</span>
                 <span>{`${term.season} ${term.year}`}</span>
             </h2>
             {term.courses.length !== 0 ? (<div className="overflow-x-auto">
@@ -42,7 +42,7 @@ const Term = ({ term }: Props) => {
                                     <td>{course.code}</td>
                                     <td>{course.grade}</td>
                                     <td>
-                                        { prereqCheckerWrapper(profile, course, term.term) ? 
+                                        { prereqCheckerWrapper(profile, course, term.index) ? 
                                             <span className="btn btn-xs btn-circle bg-green-500 hover:bg-green-500"></span> :
                                             <span className="btn btn-xs btn-circle bg-red-500 hover:bg-red-500"></span> }
                                     </td>
@@ -62,7 +62,7 @@ const Term = ({ term }: Props) => {
             <div className="card-actions justify-end mt-auto">
                 <AddCourseModal term={term} />
                 {term.courses.length === 0 ? null : <EditTermModal term={term} />}
-                {term.courses.length === 0 ? term.term === profile[profile.length - 1].term ? <button onClick={onDelete} className="btn btn-circle btn-ghost"><Trash /></button> : null : null}
+                {term.courses.length === 0 ? term.code === profile[profile.length - 1].code ? <button onClick={onDelete} className="btn btn-circle btn-ghost"><Trash /></button> : null : null}
             </div>
         </div>
     </div>
