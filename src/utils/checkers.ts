@@ -46,3 +46,9 @@ export const prereqCheckerWrapper = (profile: Term[], course: GradeCourse, index
     const prereqs = JSON.parse(course.prereqs) as Requirement;
     return prereqChecker(prereqs, courses, operatorToFunction(prereqs.operator))
 };
+
+export const minLevelChecker = (profile: Term[], course: GradeCourse, index: number): boolean => {
+    if (!course.minLevel) return true;
+    const minLevelIndex = profile.findIndex(term => term.code === course.minLevel);
+    return index >= minLevelIndex;
+};
