@@ -2,7 +2,9 @@ type OperatorFunctionType = (values: boolean[]) => boolean;
 
 const codeRegex = new RegExp("[A-Z]{2,} [0-9]{3}[A-Z]?");
 const gradeRegex = new RegExp("{[0-9]{2,}%}");
+const termRegex = new RegExp("\\[(F|W|S)[0-9]{2}\\]");
 const codeFullRegex = new RegExp("^[A-Z]{2,} [0-9]{3}[A-Z]?$");
+const codeTermFullRegex = new RegExp("[A-Z]{2,} [0-9]{3}[A-Z]? \\[(F|W|S)[0-9]{2}\\]");
 const codeGradeFullRegex = new RegExp("^[A-Z]{2,} [0-9]{3}[A-Z]? {[0-9]{2,}%}$");
 
 const emptyObject = (object: Record<any, any>): boolean => Object.keys(object).length === 0;
@@ -12,6 +14,10 @@ const operatorToFunction = (operator: string): OperatorFunctionType => operator 
 
 const previousCourses = (profile: Term[], index: number): GradeCourse[] => {
     return profile.slice(0, index).map(term => term.courses).reduce((initial, current) => initial.concat(current), []);
+};
+
+const previousTerms = (profile: Term[], index: number): Term[] => {
+    return profile.slice(0, index);
 };
 
 const prereqCheckerHelper = (requirement: Requirement, previousCourses: GradeCourse[], operatorFunction: OperatorFunctionType): boolean => {
@@ -58,7 +64,21 @@ const antireqChecker = (profile: Term[], course: GradeCourse, index: number): bo
             } else {
                 continue;
             };
-        }
+        } else if (codeTermFullRegex.test(antireq)) {
+            // @ts-ignore
+            const [code, term] = [antireq.match(codeRegex)[0], antireq.match(termRegex)[0].substring(1, 4)];
+            const sameSeasonYearTerms = previousTerms(profile, index).filter(profileTerm => profileTerm.season[0] == term[0] && profileTerm.year.substring(2, 4) == term.substring(1, 3));
+            if (sameSeasonYearTerms.length == 0) {
+                continue;
+            } else {
+                const sameSeasonYearTerm = sameSeasonYearTerms[0];
+                if (sameSeasonYearTerm.courses.map(course => course.code).includes(code)) {
+                    continue;
+                } else {
+                    return false;
+                };
+            };
+        };
     };
     return true;
 };
