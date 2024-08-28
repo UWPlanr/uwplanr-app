@@ -87,6 +87,7 @@ const antireqChecker = (profile: Term[], course: GradeCourse, index: number): bo
 const minLevelChecker = (profile: Term[], course: GradeCourse, index: number): boolean => {
     if (!course.minLevel) return true;
     const minLevelIndex = profile.findIndex(term => term.code === course.minLevel);
+    if (minLevelIndex == -1) return false;
     return index >= minLevelIndex;
 };
 
