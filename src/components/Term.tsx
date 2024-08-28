@@ -6,7 +6,7 @@ import AddCourseModal from "./AddCourseModal";
 import CourseInfoModal from "./CourseInfoModal";
 
 import { ProfileContext } from "../context/useProfileContext";
-import { prereqCheckerWrapper } from "../utils/checkers";
+import { requirementsChecker } from "../utils/checkers";
 
 type Props = {
     term: Term;
@@ -42,9 +42,7 @@ const Term = ({ term }: Props) => {
                                     <td>{course.code}</td>
                                     <td>{course.grade}</td>
                                     <td>
-                                        { prereqCheckerWrapper(profile, course, term.index) ? 
-                                            <span className="btn btn-xs btn-circle bg-green-500 hover:bg-green-500"></span> :
-                                            <span className="btn btn-xs btn-circle bg-red-500 hover:bg-red-500"></span> }
+                                        <span className={requirementsChecker(profile, course, term.index)}></span>
                                     </td>
                                     <td>
                                         <CourseInfoModal course={course} />
