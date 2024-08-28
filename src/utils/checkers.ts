@@ -68,14 +68,15 @@ const antireqChecker = (profile: Term[], course: GradeCourse, index: number): bo
             // @ts-ignore
             const [code, term] = [antireq.match(codeRegex)[0], antireq.match(termRegex)[0].substring(1, 4)];
             const sameSeasonYearTerms = previousTerms(profile, index).filter(profileTerm => profileTerm.season[0] == term[0] && profileTerm.year.substring(2, 4) == term.substring(1, 3));
+            console.log(sameSeasonYearTerms);
             if (sameSeasonYearTerms.length == 0) {
                 continue;
             } else {
                 const sameSeasonYearTerm = sameSeasonYearTerms[0];
                 if (sameSeasonYearTerm.courses.map(course => course.code).includes(code)) {
-                    continue;
-                } else {
                     return false;
+                } else {
+                    continue;
                 };
             };
         };
