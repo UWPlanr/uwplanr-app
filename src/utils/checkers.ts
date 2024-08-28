@@ -1,5 +1,4 @@
 type OperatorFunctionType = (values: boolean[]) => boolean;
-type ColorsType = ("red" | "green" | "indigo");
 
 const codeRegex = new RegExp("[A-Z]{2,} [0-9]{3}[A-Z]?");
 const gradeRegex = new RegExp("{[0-9]{2,}%}");
@@ -48,6 +47,22 @@ const prereqChecker = (profile: Term[], course: GradeCourse, index: number): boo
     return prereqCheckerHelper(prereqs, courses, operatorToFunction(prereqs.operator))
 };
 
+const antireqChecker = (profile: Term[], course: GradeCourse, index: number): boolean => {
+    if (!course.antireqs) return true;
+    const courses = previousCourses(profile, index);
+    const antireqs = course.antireqs.split(",");
+    for (let antireq of antireqs) {
+        if (codeFullRegex.test(antireq)) {
+            if (courses.map(course => course.code).includes(antireq)) {
+                return false;
+            } else {
+                continue;
+            };
+        }
+    };
+    return true;
+};
+
 const minLevelChecker = (profile: Term[], course: GradeCourse, index: number): boolean => {
     if (!course.minLevel) return true;
     const minLevelIndex = profile.findIndex(term => term.code === course.minLevel);
@@ -58,6 +73,8 @@ export const requirementsChecker = (profile: Term[], course: GradeCourse, index:
     let classes = "btn btn-xs btn-circle ";
     if (!minLevelChecker(profile, course, index)) {
         classes += "bg-indigo-500 hover:bg-indigo-500";
+    } else if (!antireqChecker(profile, course, index)) {
+        classes += "bg-orange-500 hover:bg-orange-500"
     } else if (!prereqChecker(profile, course, index)) {
         classes += "bg-red-500 hover:bg-red-500";
     } else {
