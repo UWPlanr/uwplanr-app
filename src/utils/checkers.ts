@@ -38,7 +38,11 @@ const prereqCheckerAND = (requirement: Requirement, previousCourses: GradeCourse
                 final = final && found;
             // ABC XXX
             } else if ((new RegExp("^[A-Z]{2,} XXX$")).test(operand)) {
-                final = final && previousCourses.map(course => course.code.split(" ")[0]).includes(operand.split(" ")[0]);
+                if (previousCourses.map(course => course.code.split(" ")[0]).includes(operand.split(" ")[0])) {
+                    previousCourses.splice(previousCourses.findIndex(course => course.code.split(" ")[0] === operand.split(" ")[0]), 1);
+                } else {
+                    return false;
+                };
             // ABC 1XX
             } else if ((new RegExp("^[A-Z]{2,} [0-9]XX$")).test(operand)) {
                 // @ts-ignore
@@ -84,7 +88,10 @@ const prereqCheckerOR = (requirement: Requirement, previousCourses: GradeCourse[
                 final = final || found;
             // ABC XXX
             } else if ((new RegExp("^[A-Z]{2,} XXX$")).test(operand)) {
-                final = final || previousCourses.map(course => course.code.split(" ")[0]).includes(operand.split(" ")[0]);
+                if (previousCourses.map(course => course.code.split(" ")[0]).includes(operand.split(" ")[0])) {
+                    previousCourses.splice(previousCourses.findIndex(course => course.code.split(" ")[0] === operand.split(" ")[0]), 1);
+                    return true;
+                };
             // ABC 1XX
             } else if ((new RegExp("^[A-Z]{2,} [0-9]XX$")).test(operand)) {
                 // @ts-ignore
