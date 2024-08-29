@@ -1,9 +1,15 @@
 type OperatorFunctionType = (values: boolean[]) => boolean;
 
 const codeRegex = new RegExp("[A-Z]{2,} [0-9]{3}[A-Z]?");
-const gradeRegex = new RegExp("{[0-9]{2,}%}");
+const codeLevelRegex = new RegExp("[A-Z]{2,} [0-9]XX");
+const codeAllLevelsRegex = new RegExp("[A-Z]{2,} XXX");
+const codeGradeRegex = new RegExp("{[0-9]{2,}%}");
 const termRegex = new RegExp("\\[(F|W|S)[0-9]{2}\\]");
+
 const codeFullRegex = new RegExp("^[A-Z]{2,} [0-9]{3}[A-Z]?$");
+const codeLevelFullRegex = new RegExp("^[A-Z]{2,} [0-9]XX$");
+const codeLevelPlusFullRegex = new RegExp("[A-Z]{2,} [0-9]XX\\+");
+const codeAllLevelsFullRegex = new RegExp("^[A-Z]{2,} XXX$");
 const codeTermFullRegex = new RegExp("[A-Z]{2,} [0-9]{3}[A-Z]? \\[(F|W|S)[0-9]{2}\\]");
 const codeGradeFullRegex = new RegExp("^[A-Z]{2,} [0-9]{3}[A-Z]? {[0-9]{2,}%}$");
 
@@ -29,7 +35,7 @@ const prereqCheckerHelper = (requirement: Requirement, previousCourses: GradeCou
                 booleanValues.push((previousCourses.map(previousCourse => previousCourse.code).includes(operand)));
             } else if (codeGradeFullRegex.test(operand)) {
                 // @ts-ignore
-                const [code, grade] = [operand.match(codeRegex)[0], parseInt(operand.match(gradeRegex)[0].substring(1, 3))];
+                const [code, grade] = [operand.match(codeRegex)[0], parseInt(operand.match(codeGradeRegex)[0].substring(1, 3))];
                 let found = false;
                 for (let previousCourse of previousCourses) {
                     if (previousCourse.code === code && parseInt(previousCourse.grade) >= grade) {
@@ -38,6 +44,8 @@ const prereqCheckerHelper = (requirement: Requirement, previousCourses: GradeCou
                     };
                 };
                 booleanValues.push(found);
+            } else if (codeAllLevelsFullRegex.test(operand)) {
+                booleanValues.push((previousCourses.map(course => course.code.split(" ")[0])).includes(operand.split(" ")[0]));
             };
         } else {
             booleanValues.push(prereqCheckerHelper(operand, previousCourses, operatorToFunction(operand.operator)));
