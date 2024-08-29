@@ -1,8 +1,6 @@
 type OperatorFunctionType = (values: boolean[]) => boolean;
 
 const codeRegex = new RegExp("[A-Z]{2,} [0-9]{3}[A-Z]?");
-const codeLevelRegex = new RegExp("[A-Z]{2,} [0-9]XX");
-const codeAllLevelsRegex = new RegExp("[A-Z]{2,} XXX");
 const gradeRegex = new RegExp("{[0-9]{2,}%}");
 const termRegex = new RegExp("\\[(F|W|S)[0-9]{2}\\]");
 
@@ -49,6 +47,15 @@ const prereqCheckerHelper = (requirement: Requirement, previousCourses: GradeCou
             } else if (codeLevelFullRegex.test(operand)) {
                 // @ts-ignore
                 booleanValues.push((previousCourses.map(course => course.code.match("[A-Z]{2,} [0-9]")[0])).includes(operand.match("[A-Z]{2,} [0-9]")[0]));
+            } else if (codeLevelPlusFullRegex.test(operand)) {
+                // @ts-ignore
+                const [operandShortCode, operandNumber] = [operand.match("[A-Z]{2,}")[0], operand.match("[0-9]")[0]];
+                // @ts-ignore
+                booleanValues.push(OR((previousCourses.map(course => course.code.match("[A-Z]{2,} [0-9]")[0])).map(shortCode => {
+                    // @ts-ignore
+                    const [subjectCode, number] = [shortCode.match("[A-Z]{2,}")[0], shortCode.match("[0-9]")[0]];
+                    return subjectCode === operandShortCode && parseInt(number) >= parseInt(operandNumber);
+                })));
             };
         } else {
             booleanValues.push(prereqCheckerHelper(operand, previousCourses, operatorToFunction(operand.operator)));
