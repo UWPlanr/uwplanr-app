@@ -160,10 +160,17 @@ const minLevelChecker = (profile: Term[], course: GradeCourse, index: number): b
     return index >= minLevelIndex;
 };
 
+const termsOfferedChecker = (profile: Term[], course: GradeCourse, index: number) => {
+    if (!course.termsOffered || course.termsOffered.length === 0) return true;
+    return course.termsOffered.includes(profile[index].season[0]);
+};
+
 export const requirementsChecker = (profile: Term[], course: GradeCourse, index: number): string => {
     let classes = "btn btn-xs btn-circle ";
     if (!minLevelChecker(profile, course, index)) {
         classes += "bg-indigo-500 hover:bg-indigo-500";
+    } else if (!termsOfferedChecker(profile, course, index)) {
+        classes += "bg-cyan-500 hover:bg-cyan-500";
     } else if (!antireqChecker(profile, course, index)) {
         classes += "bg-orange-500 hover:bg-orange-500"
     } else if (!prereqChecker(profile, course, index)) {
