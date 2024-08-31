@@ -1,4 +1,3 @@
-import { Github, Laptop, Linkedin } from "lucide-react";
 import { Link } from "react-router-dom";
 
 import AboutMember from "../components/AboutMember";
@@ -6,7 +5,7 @@ import AboutMember from "../components/AboutMember";
 const About = () => {
   return (
     <>
-      <div className="navbar bg-base-100">
+      <div className="navbar bg-base-100 shadow-xl">
         <div className="flex-1">
           <span className="btn btn-ghost text-xl font-bold">
             <Link to="/">UW Planr</Link>
