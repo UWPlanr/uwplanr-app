@@ -23,7 +23,11 @@ const prereqCheckerAND = (requirement: Requirement, previousCourses: GradeCourse
         if (typeof operand === "string") {
             // ABC 123
             if (codeFullRegex.test(operand)) {
-                final = final && previousCourses.map(previousCourse => previousCourse.code).includes(operand);
+                if (previousCourses.map(previousCourse => previousCourse.code).includes(operand)) {
+                    previousCourses.splice(previousCourses.findIndex(course => course.code === operand), 1);
+                } else {
+                    return false;
+                };
             // ABC 123 {XY%}
             } else if ((new RegExp("^[A-Z]{2,} [0-9]{3}[A-Z]? {[0-9]{2,}%}$")).test(operand)) {
                 // @ts-ignore
@@ -73,7 +77,10 @@ const prereqCheckerOR = (requirement: Requirement, previousCourses: GradeCourse[
         if (typeof operand === "string") {
             // ABC 123
             if (codeFullRegex.test(operand)) {
-                final = final || previousCourses.map(previousCourse => previousCourse.code).includes(operand);
+                if (previousCourses.map(previousCourse => previousCourse.code).includes(operand)) {
+                    previousCourses.splice(previousCourses.findIndex(course => course.code === operand), 1);
+                    return true;
+                };
             // ABC 123 {XY%}
             } else if ((new RegExp("^[A-Z]{2,} [0-9]{3}[A-Z]? {[0-9]{2,}%}$")).test(operand)) {
                 // @ts-ignore
