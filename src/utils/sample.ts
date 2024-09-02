@@ -1,6 +1,7 @@
 export const PROFILE: Term[] = [
   {
-    term: "1A",
+    index: 0,
+    code: "1A",
     season: "Fall",
     year: "2023",
     courses: [
@@ -87,7 +88,8 @@ export const PROFILE: Term[] = [
     ],
   },
   {
-    term: "1B",
+    index: 1,
+    code: "1B",
     season: "Winter",
     year: "2024",
     courses: [
@@ -160,7 +162,8 @@ export const PROFILE: Term[] = [
     ],
   },
   {
-    term: "2A",
+    index: 2,
+    code: "2A",
     season: "Fall",
     year: "2024",
     courses: [
