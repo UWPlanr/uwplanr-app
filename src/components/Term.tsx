@@ -40,7 +40,7 @@ const Term = ({ term }: Props) => {
                             term.courses.map((course, index) => (
                                 <tr key={index}>
                                     <td>{course.code}</td>
-                                    <td>{course.grade}</td>
+                                    <td>{course.grade ? course.grade : "TBD"}</td>
                                     <td>
                                         <span className={requirementsChecker(profile, course, term.index)}></span>
                                     </td>

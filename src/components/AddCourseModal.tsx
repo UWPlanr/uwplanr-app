@@ -25,12 +25,6 @@ const AddCourseModal = ({ term }: Props) => {
       toast.error("Course has already been added.");
       return;
     };
-    if (!course.grade || isNaN(parseInt(course.grade))) {
-      setCourse(EMPTY_COURSE);
-      (document.getElementById(`add-course-${term.code}-modal`) as HTMLDialogElement).close();
-      toast.error("Invalid course grade.");
-      return;
-    };
     if (parseInt(course.grade) < 0 || parseInt(course.grade) > 100) {
       setCourse(EMPTY_COURSE);
       (document.getElementById(`add-course-${term.code}-modal`) as HTMLDialogElement).close();
@@ -64,7 +58,8 @@ const AddCourseModal = ({ term }: Props) => {
         <dialog id={`add-course-${term.code}-modal`} className="modal">
             <div className="modal-box">
                 <h3 className="font-bold text-lg">{`${term.season} ${term.year} - ${term.code}`}</h3>
-                <span className="text-gray-500 italic text-sm">Separate the subject code and catalog number; e.g.: MATH135 to MATH 135.</span>
+                <span className="block text-gray-500 italic text-sm">Separate the subject code and catalog number; e.g.: MATH135 to MATH 135.</span>
+                <span className="block text-gray-500 italic text-sm">Leave the grade field empty if the grade is undecided.</span>
                 <div className="w-full flex items-center gap-2 mt-4">
                     <input disabled={loading} onChange={event => handleChange(event)} name="code" value={course.code} type="text" placeholder="Course" className="w-full input input-bordered" />
                     <input onChange={event => handleChange(event)} name="grade" value={course.grade} type="text" placeholder="Grade" className="w-full input input-bordered" />
