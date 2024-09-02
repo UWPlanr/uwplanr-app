@@ -25,6 +25,12 @@ const AddCourseModal = ({ term }: Props) => {
       toast.error("Course has already been added.");
       return;
     };
+    if (isNaN(parseInt(course.grade)) && course.grade !== "") {
+      setCourse(EMPTY_COURSE);
+      (document.getElementById(`add-course-${term.code}-modal`) as HTMLDialogElement).close();
+      toast.error("Grade is invalid.");
+      return;
+    };
     if (parseInt(course.grade) < 0 || parseInt(course.grade) > 100) {
       setCourse(EMPTY_COURSE);
       (document.getElementById(`add-course-${term.code}-modal`) as HTMLDialogElement).close();
