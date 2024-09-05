@@ -7,7 +7,7 @@ const nextIndex = (terms: Term[]): number => {
 const nextCode = (terms: Term[]): string => {
     if (terms.length === 0) return "1A";
     const latestTerm = terms[terms.length - 1];
-    if (latestTerm.code.match("[0-9](A|B)")) {
+    if ((new RegExp("[0-9](A|B)")).test(latestTerm.code)) {
         return latestTerm.code[1] === "A" ? `${latestTerm.code[0]}B` : `${parseInt(latestTerm.code[0]) + 1}A`;
     } else {
         return `COOP${parseInt(latestTerm.code[4]) + 1}`;
