@@ -1,3 +1,18 @@
+// Returns true if term1 comes after term2 and false otherwise.
+// Assumes term1 and term2 are in the following format: (F|W|S)[0-9]{2}
+export const compareTerms = (term1: string, term2: string): boolean => {
+    const [term1Season, term2Season] = [term1[0], term2[0]];
+    const [term1Year, term2Year] = [term1.substring(1, 3), term2.substring(1, 3)];
+    if (term1Year > term2Year) {
+        return true;
+    } else if (term1Year < term2Year) {
+        return false;
+    } else {
+        const seasons = ["Winter", "Spring", "Fall"];
+        return seasons.findIndex(season => season[0] == term1Season) > seasons.findIndex(season => season[0] == term2Season);
+    };
+};
+
 // Assumes the array is sorted in terms of the index.
 const nextIndex = (terms: Term[]): number => {
     return terms.length;
