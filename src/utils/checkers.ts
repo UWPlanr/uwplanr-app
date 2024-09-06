@@ -59,13 +59,18 @@ const prereqCheckerAND = (requirement: Requirement, previousCourses: GradeCourse
             // ABC 1XX+
             } else if ((new RegExp("[A-Z]{2,} [0-9]XX\\+")).test(operand)) {
                 // @ts-ignore
-                const [operandShortCode, operandNumber] = [operand.match("[A-Z]{2,}")[0], operand.match("[0-9]")[0]];
+                const [operandSubjectCode, operandNumber] = [operand.match("[A-Z]{2,}")[0], operand.match("[0-9]")[0]];
+                let found = false;
                 // @ts-ignore
-                final = final && OR((previousCourses.map(course => course.code.match("[A-Z]{2,} [0-9]")[0])).map(shortCode => {
+                for (let previousCourse of previousCourses) {
                     // @ts-ignore
-                    const [subjectCode, number] = [shortCode.match("[A-Z]{2,}")[0], shortCode.match("[0-9]")[0]];
-                    return subjectCode === operandShortCode && parseInt(number) >= parseInt(operandNumber);
-                }));
+                    const [subjectCode, number] = [previousCourse.code.match("[A-Z]{2,}")[0], previousCourse.code.match("[0-9]")[0]];
+                    if (subjectCode === operandSubjectCode && parseInt(number) >= parseInt(operandNumber)) {
+                        found = true;
+                        break;
+                    };
+                };
+                final = final && found;
             };
         } else {
             final = final && operatorToFunction(operand.operator)(operand, previousCourses);
@@ -115,13 +120,18 @@ const prereqCheckerOR = (requirement: Requirement, previousCourses: GradeCourse[
             // ABC 1XX+
             } else if ((new RegExp("[A-Z]{2,} [0-9]XX\\+")).test(operand)) {
                 // @ts-ignore
-                const [operandShortCode, operandNumber] = [operand.match("[A-Z]{2,}")[0], operand.match("[0-9]")[0]];
+                const [operandSubjectCode, operandNumber] = [operand.match("[A-Z]{2,}")[0], operand.match("[0-9]")[0]];
+                let found = false;
                 // @ts-ignore
-                final = final || OR((previousCourses.map(course => course.code.match("[A-Z]{2,} [0-9]")[0])).map(shortCode => {
+                for (let previousCourse of previousCourses) {
                     // @ts-ignore
-                    const [subjectCode, number] = [shortCode.match("[A-Z]{2,}")[0], shortCode.match("[0-9]")[0]];
-                    return subjectCode === operandShortCode && parseInt(number) >= parseInt(operandNumber);
-                }));
+                    const [subjectCode, number] = [previousCourse.code.match("[A-Z]{2,}")[0], previousCourse.code.match("[0-9]")[0]];
+                    if (subjectCode === operandSubjectCode && parseInt(number) >= parseInt(operandNumber)) {
+                        found = true;
+                        break;
+                    };
+                };
+                final = final || found;
             };
         } else {
             final = final || operatorToFunction(operand.operator)(operand, previousCourses);
