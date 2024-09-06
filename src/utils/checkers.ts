@@ -50,7 +50,12 @@ const prereqCheckerAND = (requirement: Requirement, previousCourses: GradeCourse
             // ABC 1XX
             } else if ((new RegExp("^[A-Z]{2,} [0-9]XX$")).test(operand)) {
                 // @ts-ignore
-                final = final && previousCourses.map(course => course.code.match("[A-Z]{2,} [0-9]")[0]).includes(operand.match("[A-Z]{2,} [0-9]")[0]);
+                if (previousCourses.map(course => course.code.match("[A-Z]{2,} [0-9]")[0]).includes(operand.match("[A-Z]{2,} [0-9]")[0])) {
+                    // @ts-ignore
+                    previousCourses.splice(previousCourses.findIndex(course => course.code.match("[A-Z]{2,} [0-9]")[0].includes(operand.match("[A-Z]{2,} [0-9]")[0])), 1);
+                } else {
+                    return false;
+                };
             // ABC 1XX+
             } else if ((new RegExp("[A-Z]{2,} [0-9]XX\\+")).test(operand)) {
                 // @ts-ignore
@@ -102,7 +107,11 @@ const prereqCheckerOR = (requirement: Requirement, previousCourses: GradeCourse[
             // ABC 1XX
             } else if ((new RegExp("^[A-Z]{2,} [0-9]XX$")).test(operand)) {
                 // @ts-ignore
-                final = final || previousCourses.map(course => course.code.match("[A-Z]{2,} [0-9]")[0]).includes(operand.match("[A-Z]{2,} [0-9]")[0]);
+                if (previousCourses.map(course => course.code.match("[A-Z]{2,} [0-9]")[0]).includes(operand.match("[A-Z]{2,} [0-9]")[0])) {
+                    // @ts-ignore
+                    previousCourses.splice(previousCourses.findIndex(course => course.code.match("[A-Z]{2,} [0-9]")[0].includes(operand.match("[A-Z]{2,} [0-9]")[0])), 1);
+                    return true;
+                };
             // ABC 1XX+
             } else if ((new RegExp("[A-Z]{2,} [0-9]XX\\+")).test(operand)) {
                 // @ts-ignore
