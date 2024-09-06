@@ -7,7 +7,6 @@ const termRegex = new RegExp("\\[(F|W|S)[0-9]{2}\\]");
 const codeFullRegex = new RegExp("^[A-Z]{2,} [0-9]{3}[A-Z]?$");
 
 const emptyObject = (object: Record<any, any>): boolean => Object.keys(object).length === 0;
-const OR = (value1: boolean, value2: boolean): boolean => value1 || value2;
 const operatorToFunction = (operator: string) => operator === "&" ? prereqCheckerAND : prereqCheckerOR;
 
 const previousCourses = (profile: Term[], index: number): GradeCourse[] => {
@@ -175,11 +174,20 @@ const antireqChecker = (profile: Term[], course: GradeCourse, index: number): bo
                     continue;
                 };
             };
-        } else if ((new RegExp("[A-Z]{2,} [0-9]{3}[A-Z]? \\[(F|W|S)[0-9]{2}-\\]"))) {
+        } else if ((new RegExp("[A-Z]{2,} [0-9]{3}[A-Z]? \\[(F|W|S)[0-9]{2}-\\]")).test(antireq)) {
             // @ts-ignore
             const [code, term] = [antireq.match(codeRegex)[0], antireq.match("(F|W|S)[0-9]{2}")[0]];
             const previousSeasonYearTerms = previousTerms(profile, index).filter(profileTerm => `${profileTerm.season[0]}${profileTerm.year.substring(2, 4)}` === term ? false : compareTerms(term, `${profileTerm.season[0]}${profileTerm.year.substring(2, 4)}`));
             if (previousSeasonYearTerms.map(profileTerm => profileTerm.courses).flat().map(course => course.code).includes(code)) {
+                return false;
+            } else {
+                continue;
+            };
+        } else if ((new RegExp("[A-Z]{2,} [0-9]{3}[A-Z]? \\[(F|W|S)[0-9]{2}\\+\\]")).test(antireq)) {
+            // @ts-ignore
+            const [code, term] = [antireq.match(codeRegex)[0], antireq.match("(F|W|S)[0-9]{2}")[0]];
+            const afterSeasonYearTerms = previousTerms(profile, index).filter(profileTerm => `${profileTerm.season[0]}${profileTerm.year.substring(2, 4)}` === term ? false : compareTerms(`${profileTerm.season[0]}${profileTerm.year.substring(2, 4)}`, term));
+            if (afterSeasonYearTerms.map(profileTerm => profileTerm.courses).flat().map(course => course.code).includes(code)) {
                 return false;
             } else {
                 continue;
