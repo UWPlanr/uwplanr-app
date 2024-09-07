@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { Coffee } from "lucide-react";
 
 import AboutMember from "../components/AboutMember";
 
@@ -10,6 +11,9 @@ const About = () => {
           <span className="btn btn-ghost text-xl font-bold">
             <Link to="/">UW Planr</Link>
           </span>
+        </div>
+        <div className="flex-0">
+          <Link className="btn btn-ghost btn-circle" to="https://buymeacoffee.com/uwplanr"><Coffee /></Link>
         </div>
       </div>
       <div className="p-4 mb-4 w-full flex flex-col md:flex-row justify-evenly items-center gap-4">
