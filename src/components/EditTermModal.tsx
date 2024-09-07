@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { Edit, Trash } from "lucide-react";
+import { Edit, Trash, X } from "lucide-react";
 
 import { ProfileContext } from "../context/useProfileContext";
 
@@ -26,9 +26,12 @@ const EditTermModal = ({ term }: Props) => {
   };
   return (
     <>
-        <button className="btn btn-circle btn-ghost" onClick={() => (document.getElementById(`edit-modal-${term.code}`) as HTMLDialogElement).showModal()}><Edit /></button>
-        <dialog id={`edit-modal-${term.code}`} className="modal">
+        <button className="btn btn-circle btn-ghost" onClick={() => (document.getElementById(`edit-term-${term.code}-modal`) as HTMLDialogElement).showModal()}><Edit /></button>
+        <dialog id={`edit-term-${term.code}-modal`} className="modal">
             <div className="modal-box">
+                <form method="dialog">
+                  <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"><X /></button>
+                </form>
                 <h3 className="font-bold text-lg">{`${term.season} ${term.year} - ${term.code}`}</h3>
                 <div className="flex flex-col gap-y-2 my-4">
                     {
@@ -42,9 +45,6 @@ const EditTermModal = ({ term }: Props) => {
                     }
                 </div>
                 <div className="modal-action">
-                    <form method="dialog">
-                        <button className="btn btn-error">Close</button>
-                    </form>
                     <button disabled={validGrades.some(element => element === false)} onClick={onEdit} className="btn btn-primary">Edit</button>
                 </div>
             </div>

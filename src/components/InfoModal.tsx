@@ -1,4 +1,4 @@
-import { Info } from "lucide-react";
+import { Info, X } from "lucide-react";
 
 const InfoModal = () => {
   return (
@@ -6,6 +6,9 @@ const InfoModal = () => {
         <button className="btn btn-ghost btn-circle" onClick={() => (document.getElementById("info-modal") as HTMLDialogElement).showModal()}><Info /></button>
         <dialog id="info-modal" className="modal">
         <div className="modal-box">
+            <form method="dialog">
+                <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"><X /></button>
+            </form>
             <h3 className="font-bold text-lg">Information</h3>
             <div className="mt-4">
                 <div className="overflow-x-auto">
@@ -40,11 +43,6 @@ const InfoModal = () => {
                         </tbody>
                     </table>
                 </div>
-            </div>
-            <div className="modal-action">
-                <form method="dialog">
-                    <button className="btn btn-error">Close</button>
-                </form>
             </div>
         </div>
         </dialog>

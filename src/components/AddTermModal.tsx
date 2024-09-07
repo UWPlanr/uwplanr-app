@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { Plus } from "lucide-react";
+import { Plus, X } from "lucide-react";
 import toast from "react-hot-toast";
 
 import { ProfileContext } from "../context/useProfileContext";
@@ -27,6 +27,9 @@ const AddTermModal = () => {
         <button className="btn btn-lg btn-circle btn-ghost" onClick={() => (document.getElementById("add-term-modal") as HTMLDialogElement).showModal()}><Plus size={30} /></button>
         <dialog id={"add-term-modal"} className="modal">
             <div className="modal-box">
+                <form method="dialog">
+                  <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"><X /></button>
+                </form>
                 <h3 className="font-bold text-lg">Add Term</h3>
                 <div className="w-full flex items-center gap-2 mt-4">
                     <select onChange={event => handleChange(event)} name="code" value={term.code} className="select select-bordered w-full max-w-xs">
@@ -40,9 +43,6 @@ const AddTermModal = () => {
                     <input onChange={event => handleChange(event)} name="year" value={term.year} type="text" placeholder="Year" className="w-full input input-bordered" />
                 </div>
                 <div className="modal-action">
-                    <form method="dialog">
-                        <button className="btn btn-error">Close</button>
-                    </form>
                     <button onClick={onAdd} className="btn btn-primary">Add</button>
                 </div>
             </div>

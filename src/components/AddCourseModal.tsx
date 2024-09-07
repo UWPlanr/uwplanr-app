@@ -1,4 +1,4 @@
-import { Plus } from "lucide-react";
+import { Plus, X } from "lucide-react";
 import { useContext, useState } from "react";
 import toast from "react-hot-toast";
 
@@ -63,6 +63,9 @@ const AddCourseModal = ({ term }: Props) => {
         <button className="btn btn-circle btn-ghost" onClick={() => (document.getElementById(`add-course-${term.code}-modal`) as HTMLDialogElement).showModal()}><Plus /></button>
         <dialog id={`add-course-${term.code}-modal`} className="modal">
             <div className="modal-box">
+                <form method="dialog">
+                  <button disabled={loading} className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"><X /></button>
+                </form>
                 <h3 className="font-bold text-lg">{`${term.season} ${term.year} - ${term.code}`}</h3>
                 <span className="block text-gray-500 italic text-sm">Separate the subject code and catalog number; e.g.: MATH135 to MATH 135.</span>
                 <span className="block text-gray-500 italic text-sm">Leave the grade field empty if the grade is undecided.</span>
@@ -71,9 +74,6 @@ const AddCourseModal = ({ term }: Props) => {
                     <input onChange={event => handleChange(event)} name="grade" value={course.grade} type="text" placeholder="Grade" className="w-full input input-bordered" />
                 </div>
                 <div className="modal-action">
-                    <form method="dialog">
-                        <button disabled={loading} className="btn btn-error">Close</button>
-                    </form>
                     <button onClick={onAdd} disabled={loading} className="btn btn-primary">
                       { loading ? <span className="loading loading-spinner"></span> : "Add" }
                     </button>
