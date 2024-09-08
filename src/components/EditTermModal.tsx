@@ -22,7 +22,7 @@ const EditTermModal = ({ term }: Props) => {
   };
   const onEdit = () => {
     changeProfile(profile.map(profileTerm => profileTerm.index === term.index ? ({ ...profileTerm, courses }) : profileTerm));
-    (document.getElementById(`edit-modal-${term.code}`) as HTMLDialogElement).close();
+    (document.getElementById(`edit-term-${term.code}-modal`) as HTMLDialogElement).close();
   };
   return (
     <>
