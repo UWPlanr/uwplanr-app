@@ -19,7 +19,7 @@ const AddCourseModal = ({ term }: Props) => {
   };
 
   const onAdd = async () => {
-    if (profile.map(term => term.courses.map(course => course.code)).flat().includes(course.code)) {
+    if (profile.map(term => term.courses.map(course => course.code)).flat().includes(course.code.toUpperCase().trim())) {
       setCourse(EMPTY_COURSE);
       (document.getElementById(`add-course-${term.code}-modal`) as HTMLDialogElement).close();
       toast.error("Course has already been added.");
