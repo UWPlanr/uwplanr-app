@@ -21,19 +21,19 @@ const CourseInfoModal = ({ course }: Props) => {
                 <div className="flex flex-col justify-center gap-y-4 items-center">
                   {/* 
                   // @ts-ignore */}
-                  <div className="radial-progress text-primary" style={{"--value": 59}} role="progressbar">59%</div>
+                  <div className="radial-progress font-bold text-error" style={{"--value": 59}} role="progressbar">59%</div>
                   <span>Liked</span>
                 </div>
                 <div className="flex flex-col justify-center gap-y-4 items-center">
                   {/* 
                   // @ts-ignore */}
-                  <div className="radial-progress text-primary" style={{"--value": 58}} role="progressbar">58%</div>
+                  <div className="radial-progress font-bold text-warning" style={{"--value": 58}} role="progressbar">58%</div>
                   <span>Easy</span>
                 </div>
                 <div className="flex flex-col justify-center gap-y-4 items-center">
                   {/* 
                   // @ts-ignore */}
-                  <div className="radial-progress text-primary" style={{"--value": 81}} role="progressbar">81%</div>
+                  <div className="radial-progress font-bold text-green-500" style={{"--value": 81}} role="progressbar">81%</div>
                   <span>Useful</span>
                 </div>
             </div>
