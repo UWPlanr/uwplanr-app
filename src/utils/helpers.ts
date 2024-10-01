@@ -91,3 +91,17 @@ export const validNextTerm = (terms: Term[], nextTerm: Term): boolean => {
         return true;
     };
 };
+
+export const statisticsColors = (statistic: string): string => {
+    let classes = "radial-progress font-bold "
+    if (statistic === "N/A") {
+        classes += "text-red-500";
+    } else if (Number(statistic) <= 40) {
+        classes += "text-red-500";
+    } else if (Number(statistic) <= 70) {
+        classes += "text-orange-500";
+    } else {
+        classes += "text-green-500";
+    };
+    return classes;
+};

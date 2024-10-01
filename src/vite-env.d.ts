@@ -12,6 +12,12 @@ type Course = {
   termsOffered: string[]
   minLevel: string
   finalized: boolean
+  statistics: {
+    liked: string
+    easy: string
+    useful: string
+    lastUpdated: string
+  }
 }
 
 type GradeCourse = Course & { grade: string }

@@ -1,5 +1,6 @@
 import { Ellipsis, X } from "lucide-react";
 import { Link } from "react-router-dom";
+import { statisticsColors } from "../utils/helpers";
 
 type Props = {
     course: GradeCourse;
@@ -21,24 +22,24 @@ const CourseInfoModal = ({ course }: Props) => {
                 <div className="flex flex-col justify-center gap-y-4 items-center">
                   {/* 
                   // @ts-ignore */}
-                  <div className="radial-progress font-bold text-error" style={{"--value": 59}} role="progressbar">59%</div>
+                  <div className={statisticsColors(course.statistics.liked)} style={{"--value": course.statistics.liked !== "N/A" ? course.statistics.liked : "0"}} role="progressbar">{course.statistics.liked !== "N/A" ? course.statistics.liked : "0" }</div>
                   <span>Liked</span>
                 </div>
                 <div className="flex flex-col justify-center gap-y-4 items-center">
                   {/* 
                   // @ts-ignore */}
-                  <div className="radial-progress font-bold text-warning" style={{"--value": 58}} role="progressbar">58%</div>
+                  <div className={statisticsColors(course.statistics.easy)} style={{"--value": course.statistics.easy !== "N/A" ? course.statistics.easy : "0"}} role="progressbar">{course.statistics.easy !== "N/A" ? course.statistics.easy : "0"}</div>
                   <span>Easy</span>
                 </div>
                 <div className="flex flex-col justify-center gap-y-4 items-center">
                   {/* 
                   // @ts-ignore */}
-                  <div className="radial-progress font-bold text-green-500" style={{"--value": 81}} role="progressbar">81%</div>
+                  <div className={statisticsColors(course.statistics.useful)} style={{"--value": course.statistics.useful !== "N/A" ? course.statistics.useful : "0"}} role="progressbar">{course.statistics.useful !== "N/A" ? course.statistics.useful : 0}</div>
                   <span>Useful</span>
                 </div>
             </div>
             <div className="flex justify-end mt-8">
-              <span className="text-xs italic">Statistics obtained from <Link to="uwflow.com" className="link link-hover">UWFlow</Link>. Last updated on Sep 29th, 2024.</span>
+              <span className="text-xs italic">Statistics obtained from <Link target="_blank" to={`https://uwflow.com/course/${course.code.replace(" ", "").toLowerCase()}`} className="link link-hover">UWFlow</Link>. Last updated on {course.statistics.lastUpdated}.</span>
             </div>
         </div>
         </dialog>
