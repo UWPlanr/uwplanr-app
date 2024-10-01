@@ -11,4 +11,10 @@ export const EMPTY_COURSE: GradeCourse = {
   minLevel: "",
   finalized: true,
   grade: "",
+  statistics: {
+    liked: "",
+    easy: "",
+    useful: "",
+    lastUpdated: ""
+  }
 };
