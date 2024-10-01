@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 type Props = {
-    course: Course;
+    course: RawCourse;
 };
 
 const AdminCourseCard = ({ course }: Props) => {

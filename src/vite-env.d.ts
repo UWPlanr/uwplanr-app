@@ -1,5 +1,19 @@
 /// <reference types="vite/client" />
 
+type RawCourse = {
+  code: string
+  title: string
+  faculty: string
+  description: string
+  requirements: string | null
+  prereqs: string
+  coreqs: string
+  antireqs: string
+  termsOffered: string[]
+  minLevel: string
+  finalized: boolean
+}
+
 type Course = {
   code: string
   title: string

@@ -5,7 +5,7 @@ import AdminCourseCard from "../components/AdminCourseCard";
 
 const Admin = () => {
   const [loading, setLoading] = useState<boolean>(false);
-  const [course, setCourse] = useState<Course | null>({ code: "", title: "", faculty: "", description: "", requirements: "", prereqs: "", coreqs: "", antireqs: "", termsOffered: [], minLevel: "", finalized: true });
+  const [course, setCourse] = useState<RawCourse | null>({ code: "", title: "", faculty: "", description: "", requirements: "", prereqs: "", coreqs: "", antireqs: "", termsOffered: [], minLevel: "", finalized: true });
 
   useEffect(() => {
         setLoading(true);
