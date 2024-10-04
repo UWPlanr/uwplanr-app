@@ -42,7 +42,7 @@ const Term = ({ term }: Props) => {
                                     <td>{course.code}</td>
                                     <td>{course.grade ? course.grade : "TBD"}</td>
                                     <td>
-                                        <span className={requirementsChecker(profile, course, term.index)}></span>
+                                        <span {...requirementsChecker(profile, course, term.index)}></span>
                                     </td>
                                     <td>
                                         <CourseInfoModal course={course} />

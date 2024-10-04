@@ -209,18 +209,24 @@ const termsOfferedChecker = (profile: Term[], course: GradeCourse, index: number
     return course.termsOffered.includes(profile[index].season[0]);
 };
 
-export const requirementsChecker = (profile: Term[], course: GradeCourse, index: number): string => {
-    let classes = "btn btn-xs btn-circle ";
+export const requirementsChecker = (profile: Term[], course: GradeCourse, index: number): { className: string, "data-tip": string } => {
+    let className = "tooltip text-white btn btn-xs btn-circle ";
+    let dataTip = "";
     if (!minLevelChecker(profile, course, index)) {
-        classes += "bg-indigo-500 hover:bg-indigo-500";
+        className += "bg-accent hover:bg-accent tooltip-accent";
+        dataTip = "Minimum level not met";
     } else if (!termsOfferedChecker(profile, course, index)) {
-        classes += "bg-cyan-500 hover:bg-cyan-500";
+        className += "bg-secondary hover:bg-secondary tooltip-secondary";
+        dataTip = "Course not offered in this term";
     } else if (!antireqChecker(profile, course, index)) {
-        classes += "bg-orange-500 hover:bg-orange-500"
+        className += "bg-warning hover:bg-warning tooltip-warning";
+        dataTip = "Similar course already taken";
     } else if (!prereqChecker(profile, course, index)) {
-        classes += "bg-red-500 hover:bg-red-500";
+        className += "bg-error hover:bg-error tooltip-error";
+        dataTip = "Course requirements not met";
     } else {
-        classes += "bg-green-500 hover:bg-green-500";
+        className += "bg-success hover:bg-success tooltip-success";
+        dataTip = "Requirements met!";
     };
-    return classes;
+    return { className, "data-tip": dataTip };
 };
