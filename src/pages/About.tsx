@@ -9,7 +9,7 @@ const About = () => {
       <div className="navbar bg-base-100 shadow-xl">
         <div className="flex-1">
           <span className="btn btn-ghost text-xl font-bold">
-            <Link to="/">UW Planr</Link>
+            <Link to="/">UWPlanr</Link>
           </span>
         </div>
         <div className="flex-0">

@@ -5,7 +5,6 @@ import { ProfileContext } from "../context/useProfileContext";
 
 import Term from "../components/Term";
 import AddTermModal from "../components/AddTermModal";
-import InfoModal from "../components/InfoModal";
 
 const Plan = () => {
   const { profile } = useContext(ProfileContext);
@@ -17,13 +16,8 @@ const Plan = () => {
             <Link to="/">UWPlanr</Link>
           </span>
         </div>
-        <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1">
-            <li><Link to="/about">About</Link></li>
-          </ul>
-        </div>
         <div className="navbar-end">
-          <InfoModal />
+          <Link className="btn btn-ghost" to="/about">About</Link>
         </div>
       </div>
       {profile.length === 0 ? 
