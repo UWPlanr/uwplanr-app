@@ -8,7 +8,7 @@ export default {
     extend: {},
   },
   daisyui: {
-    themes: ["cmyk"],
+    themes: ["emerald"],
   },
   plugins: [
     require("daisyui"),
