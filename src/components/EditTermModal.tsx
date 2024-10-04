@@ -26,7 +26,7 @@ const EditTermModal = ({ term }: Props) => {
   };
   return (
     <>
-        <button className="btn btn-circle btn-ghost" onClick={() => (document.getElementById(`edit-term-${term.code}-modal`) as HTMLDialogElement).showModal()}><Edit /></button>
+        <button className="btn btn-circle btn-ghost" onClick={() => {setCourses(profile[term.index].courses); (document.getElementById(`edit-term-${term.code}-modal`) as HTMLDialogElement).showModal()}}><Edit /></button>
         <dialog id={`edit-term-${term.code}-modal`} className="modal">
             <div className="modal-box">
                 <form method="dialog">
