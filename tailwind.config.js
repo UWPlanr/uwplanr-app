@@ -56,9 +56,6 @@ export default {
   		}
   	}
   },
-  daisyui: {
-    themes: ["emerald"],
-  },
     plugins: [require("tailwindcss-animate")]
 }
 
