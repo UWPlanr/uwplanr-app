@@ -13,7 +13,7 @@ export default function LandingPage() {
     alert("Thank you for subscribing!");
   };
   return (
-    <div className="min-h-screen bg-gradient-to-b">
+    <div className="min-h-screen">
       <nav className="bg-white shadow-md">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between py-4">

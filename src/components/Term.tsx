@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { Ghost, Trash } from "lucide-react";
+import { Edit, Plus } from "lucide-react";
 
 import EditTermModal from "./EditTermModal";
 import AddCourseModal from "./AddCourseModal";
@@ -7,8 +7,12 @@ import CourseInfoModal from "./CourseInfoModal";
 
 import { ProfileContext } from "../context/useProfileContext";
 import { requirementsChecker } from "../utils/checkers";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "./ui/card";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "./ui/table";
+import { Button } from "./ui/button";
+import { Badge } from "./ui/badge";
 
-type Props = {
+interface Props {
     term: Term;
 };
 
@@ -19,51 +23,46 @@ const Term = ({ term }: Props) => {
     window.location.reload();
   };
   return (
-    <div className="card bg-base-100 shadow-xl">
-        <div className="card-body">
-            <h2 className="card-title flex justify-between">
-                <span>{`${term.season} ${term.year}`}</span>
-                <span>{term.code}</span>
-            </h2>
-            {term.courses.length !== 0 ? (<div className="overflow-x-auto">
-                <table className="table">
-                    <thead>
-                        <tr>
-                            <th>Course</th>
-                            <th>Grade</th>
-                            <th>Status</th>
-                            <th>Info</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            term.courses.map((course, index) => (
-                                <tr key={index}>
-                                    <td>{course.code}</td>
-                                    <td>{course.grade ? course.grade : "TBD"}</td>
-                                    <td>
-                                        <span {...requirementsChecker(profile, course, term.index)}></span>
-                                    </td>
-                                    <td>
-                                        <CourseInfoModal course={course} />
-                                    </td>
-                                </tr>
-                            ))
-                        }
-                    </tbody>
-                </table>
-            </div>) : (
-                <div className="h-full flex justify-center items-center">
-                    <Ghost className="text-gray-500" size={40} />
-                </div>
-            )}
-            <div className="card-actions justify-end mt-auto">
-                <AddCourseModal term={term} />
-                {term.courses.length === 0 ? null : <EditTermModal term={term} />}
-                {term.courses.length === 0 ? term.code === profile[profile.length - 1].code ? <button onClick={onDelete} className="btn btn-circle btn-ghost"><Trash /></button> : null : null}
-            </div>
-        </div>
-    </div>
+    <Card>
+      <CardHeader>
+        <CardTitle className="text-2xl font-semibold">
+          {term.season} {term.year}
+        </CardTitle>
+      </CardHeader>
+      <CardContent>
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Code</TableHead>
+              <TableHead>Grade</TableHead>
+              <TableHead>Status</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {term.courses.map((course, index) => {
+                const { classes, text } = requirementsChecker(profile, course, term.index);
+                return (
+                    <TableRow key={index}>
+                      <TableCell className="font-medium">{course.code}</TableCell>
+                      <TableCell>{course.grade ? course.grade : "TBD"}</TableCell>
+                      <TableCell>
+                          <Badge className={classes}>{text}</Badge>
+                      </TableCell>
+                    </TableRow>
+                )
+            })}
+          </TableBody>
+        </Table>
+      </CardContent>
+      <CardFooter className="flex justify-end space-x-2 mt-auto">
+        <Button variant="outline">
+          <Plus className="h-4 w-4" />
+        </Button>
+        <Button variant="outline">
+          <Edit className="h-4 w-4" />
+        </Button>
+      </CardFooter>
+    </Card>
   );
 };
 

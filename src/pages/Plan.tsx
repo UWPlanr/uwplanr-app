@@ -9,17 +9,18 @@ import AddTermModal from "../components/AddTermModal";
 const Plan = () => {
   const { profile } = useContext(ProfileContext);
   return (
-    <>
-      <div className="navbar bg-base-100 shadow-xl">
-        <div className="navbar-start">
-          <span className="btn btn-ghost text-xl font-bold">
-            <Link to="/">UWPlanr</Link>
-          </span>
+    <div className="min-h-screen">
+      <nav className="bg-white shadow-md">
+        <div className="container mx-auto px-4">
+          <div className="flex items-center justify-between py-4">
+            <div className="flex items-center">
+              <Link to="/" className="text-2xl font-bold">
+                <span className="text-green-500">UW</span>Planr
+              </Link>
+            </div>
+          </div>
         </div>
-        <div className="navbar-end">
-          <Link className="btn btn-ghost" to="/about">About</Link>
-        </div>
-      </div>
+      </nav>
       {profile.length === 0 ? 
         (
           <div className="w-full h-[85vh] flex flex-col gap-y-2 justify-center items-center">
@@ -36,7 +37,7 @@ const Plan = () => {
             </div>
           </div>
         )}
-    </>
+    </div>
   );
 };
 
